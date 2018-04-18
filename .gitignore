@@ -1,0 +1,3 @@
+node_modules
+.env
+public/scss/main.css
