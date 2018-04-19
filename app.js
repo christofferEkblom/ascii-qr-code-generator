@@ -5,8 +5,8 @@ const express = require('express')
 const exphbs  = require('express-handlebars')
 const app = express()
 const port = process.env.PORT
-const requireDir = require('require-dir');
-const routes = requireDir('./routes');
+const requireDir = require('require-dir')
+const routes = requireDir('./routes')
 
 app.use("/public", express.static('./public'))
 
