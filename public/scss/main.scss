@@ -1,6 +1,270 @@
-$primary-color: #f00;
+// TYPOGRAPHY
+$FONT : "Andale mono", monospace;
 
-body {
-  color: $primary-color;
+// COLORS
+$PANTONE-128-C : #F3D54E;
+$PANTONE-512-C: #833177;
+$BLACK : #000;
+$WHITE : #FFF;
+$RED : #F00;
+$GREEN : #0F0;
+
+@mixin animation($name, $time, $duration) {
+  -webkit-animation: $name $time $duration;
+  -moz-animation: $name $time $duration;
+  -ms-animation: $name $time $duration;
+  animation: $name $time $duration;
 }
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin border-top-left-radius($radius) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-radius-topleft: $radius;
+  -ms-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+}
+
+@mixin border-top-right-radius($radius) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-radius-topright: $radius;
+  -ms-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-left-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-radius-bottomleft: $radius;
+  -ms-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin border-bottom-right-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-radius-bottomright: $radius;
+  -ms-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin rotate($deg) {
+  -webkit-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -ms-transform: rotate($deg);
+  transform: rotate($deg);
+}
+
+@mixin transition($transition, $delay, $duration, $property, $timing-function) {
+  -webkit-transition: $transition $delay $property $timing-function;
+  -moz-transition: $transition $delay $property $timing-function;
+  -ms-transition: $transition $delay $property $timing-function;
+  transition: $transition $delay $property $timing-function;
+}
+
+@include keyframes(fade) {
+    0% {color: $BLACK;}
+    25% {color: $BLACK;}
+    100%  {color: $WHITE;}
+}
+
+@include keyframes(scan) {
+    0% {left: -10px; background: $RED;}
+    75% {background: $GREEN;}
+    100%  {left: 75px;background: $BLACK;}
+}
+
+#qr-generator * {
+  font-family: $FONT;
+  margin: 0;
+  padding: 0;
+}
+
+#qr-generator {
+  background: $BLACK;
+  color: $WHITE;
+}
+
+#qr-generator h1 {
+  font-size: 3vw;
+  margin: 10px;
+  color: $WHITE;
+  @include animation(fade, 4s, 1);
+}
+
+#qr-generator h1:before {
+  content: '';
+  width: 1px;
+  height: 60px;
+  background: $BLACK;
+  display: inline-block;
+  position: relative;
+  top: 18px;
+  @include animation(scan, 2s, 1);
+}
+
+#qr-generator #logo {
+  height: 48px;
+  position: relative;
+  top: 12px;
+}
+
+#qr-generator input, #qr-generator textarea {
+	outline: none;
+}
+
+#qr-generator #refresh img {
+  width: 32px;
+  position: relative;
+  top: 10px;
+  @include transition(transform, .5s, ease-in-out, null, null);
+}
+
+#qr-generator #refresh img:hover {
+  @include rotate(360deg);
+}
+
+#qr-generator #copy {
+  display: block;
+  float: right;
+  border: 0;
+  position: relative;
+  top: 9px;
+  background: $PANTONE-128-C;
+  border-top: 9px solid $PANTONE-512-C;
+  border-left: 9px solid $PANTONE-512-C;
+  border-bottom: 9px solid $PANTONE-128-C;
+  @include border-top-left-radius(6px);
+  color: $PANTONE-512-C;
+}
+
+#qr-generator #copy:hover {
+  color: #000;
+}
+
+#qr-generator #copy img {
+  width: 16px;
+}
+
+#qr-generator #copy span {
+  position: relative;
+  bottom: 4px;
+}
+
+#qr-generator label {
+  display: inline;
+}
+
+#qr-generator fieldset {
+  border: 0;
+}
+
+#qr-generator {
+  text-align: center;
+}
+
+#qr-generator #input {
+    background: rgba(0,0,0,0.3);
+    border: none;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: inset 0 -5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);
+    position: relative;
+}
+
+#qr-generator #output, #qr-generator #input {
+  line-height: 15px;
+  margin: 0 auto;
+}
+
+#qr-generator #output {
+  height: 300px;
+  text-align: center;
+  border: 0;
+  width: 100%;
+  resize: vertical;
+  background: $PANTONE-128-C;
+  color: $PANTONE-512-C;
+  padding-top: 30px;
+  font-size: 15px;
+  border-top: 9px solid $PANTONE-512-C;
+  border-bottom: 9px solid $PANTONE-512-C;
+}
+
+#qr-generator #input {
+  width: 25%;
+  margin: 10px auto;
+  padding: 5px;
+  transition: all 0.5s ease-in-out;
+}
+
+#qr-generator button {
+  padding: 5px;
+}
+
+@media only screen and (max-width: 680px) {
+  #qr-generator h1 {
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    display: block;
+    -webkit-animation: initial;
+    animation: initial;
+  }
+
+  #qr-generator h1:before {
+    display: none;
+  }
+
+  #qr-generator #copy, #qr-generator #output {
+    border-radius: 0;
+    border: 0;
+  }
+
+  #qr-generator #copy {
+    top: 0;
+    padding: 10px;
+    background: $PANTONE-512-C;
+  }
+  
+  #qr-generator #copy img {
+    width: 32px;
+    content: url('../graphics/clippy2.svg');
+  }
+
+  #qr-generator #copy span {
+    display: none;
+  }
+
+  #qr-generator label[for="input"] {
+    display: block;
+    margin-top: 10px;
+  }
+
+  #qr-generator #input {
+    width: 80%;
+  }
+
+  #qr-generator #logo {
+    display: none;
+  }
+}

@@ -6,6 +6,7 @@ var app = {
     input.addEventListener('keyup', app.update, false);
     input.addEventListener('focus', app.resetInput, false);
     input.addEventListener('blur', app.restoreInput, false);
+    new ClipboardJS('.btn');
   },
 
   getInput : function() {
