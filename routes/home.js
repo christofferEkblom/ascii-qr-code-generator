@@ -11,7 +11,7 @@ function getCssFiles(callback){
 
 router.get('/', function(req, res) {
   getCssFiles(function(data) { 
-      res.render('home', { css_files: data, greeting: 'Hello world!' })
+      res.render('home', { css_files: data, greeting: 'Hello world!', sample_input_data: 'test data'})
   })
 })
 

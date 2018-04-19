@@ -7,10 +7,18 @@
     {{#each css_files}}
     <link rel="stylesheet" href="{{this}}">
     {{/each}}
+
+    <script src="public/js/app.js"></script>
+
+    <script>
+      window.onload = function() {
+        app.init();
+      }
+    </script>
 </head>
 <body>
 
-    {{{body}}}
+{{{body}}}
 
 </body>
 </html>
