@@ -4,7 +4,7 @@ const router = require('express').Router()
 const find = require('find')
 
 function getCssFiles(callback){
-	find.file(/\.css$/, './public/scss', function(files) {
+	find.file(/\.min.css$/, './public/scss', function(files) {
 	  return callback(files)
 	})
 }
