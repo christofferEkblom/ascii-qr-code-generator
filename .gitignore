@@ -1,3 +1,5 @@
 node_modules
+public/scss/.sass-cache
 .env
-public/scss/main.css
+*.css
+*.css.map
