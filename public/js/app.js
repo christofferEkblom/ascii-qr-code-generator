@@ -2,6 +2,7 @@
 
 var app = {
   init : function() {
+    app.fetchSampleData()
     app.update();
     input.addEventListener('keyup', app.update, false);
     input.addEventListener('focus', app.resetInput, false);
@@ -31,6 +32,19 @@ var app = {
     }
 
     xhttp.open('GET', 'api?data=' + content, true);
+    xhttp.send('null');
+  },
+
+  fetchSampleData : function() {
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+      if(this.readyState === 4 && this.status === 200) {
+        app.getInput().value = this.responseText;
+      }
+    }
+
+    xhttp.open('GET', 'api/sample-data', true);
     xhttp.send('null');
   },
 
