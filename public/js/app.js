@@ -2,6 +2,7 @@
 
 var app = {
   init : function() {
+    let input = app.getInput();
     app.fetchSampleData()
     app.update();
     input.addEventListener('keyup', app.update, false);
