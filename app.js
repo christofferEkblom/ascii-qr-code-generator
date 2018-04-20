@@ -7,6 +7,12 @@ const app = express()
 const port = process.env.PORT
 const requireDir = require('require-dir')
 const routes = requireDir('./routes')
+const mongoose = require('./config/mongoose.js')
+
+mongoose.run().catch(error => {
+  console.error(error)
+  process.exit(1)
+})
 
 app.use("/public", express.static('./public'))
 
