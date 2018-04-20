@@ -3,9 +3,8 @@
 var app = {
   init : function() {
     let input = app.getInput();
-    app.fetchSampleData()
     app.update();
-    input.addEventListener('keyup', app.update, false);
+    input.addEventListener('keyup', app.getQR, false);
     input.addEventListener('focus', app.resetInput, false);
     input.addEventListener('blur', app.restoreInput, false);
     new ClipboardJS('.btn');
@@ -20,10 +19,10 @@ var app = {
   },
 
   getInitialInputValue : function() {
-    return document.getElementById('initial-input-data').value;
+    return document.getElementById('initial-input-data');
   },
 
-  fetchQR : function(content) {
+  getQR : function(content) {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
@@ -31,17 +30,34 @@ var app = {
         app.getOutput().value = this.responseText + '\n' + app.getInput().value;
       }
     }
-
     xhttp.open('GET', 'api?data=' + content, true);
     xhttp.send('null');
   },
 
-  fetchSampleData : function() {
+  reset : function(content) {
+    let xhttp = new XMLHttpRequest();
+
+    app.fetchSampleData(
+      function(data) {
+        xhttp.onreadystatechange = function() {
+          if(this.readyState === 4 && this.status === 200) {
+            app.getOutput().value = this.responseText + '\n' + app.getInput().value;
+          }
+        }
+        xhttp.open('GET', 'api?data=' + content, true);
+        xhttp.send('null');
+      }
+    );
+  },
+
+  fetchSampleData : function(callback) {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
       if(this.readyState === 4 && this.status === 200) {
         app.getInput().value = this.responseText;
+        app.getInitialInputValue().value = this.responseText;
+        callback(this.responseText);
       }
     }
 
@@ -51,18 +67,18 @@ var app = {
 
   update : function() {
     app.getOutput().value = '\n\n\n\nPocessing data...';
-    app.fetchQR(app.getInput().value);
+    app.reset(app.getInput().value);
   },
 
   resetInput : function() {
-    if(app.getInput().value === app.getInitialInputValue()) {
+    if(app.getInput().value === app.getInitialInputValue().value) {
       app.getInput().value = '';
     }
   },
 
   restoreInput : function() {
     if(app.getInput().value === '') {
-      app.getInput().value = app.getInitialInputValue();
+      app.getInput().value = app.getInitialInputValue().value;
     }
   }
 }
