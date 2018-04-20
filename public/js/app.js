@@ -26,7 +26,7 @@ var app = {
 
     xhttp.onreadystatechange = function() {
       if(this.readyState === 4 && this.status === 200) {
-        app.getOutput().innerHTML = this.responseText + '\n' + app.getInput().value;
+        app.getOutput().value = this.responseText + '\n' + app.getInput().value;
       }
     }
 
@@ -35,7 +35,7 @@ var app = {
   },
 
   update : function() {
-    app.getOutput().innerHTML = '\n\n\n\nPocessing data...';
+    app.getOutput().value = '\n\n\n\nPocessing data...';
     app.fetchQR(app.getInput().value);
   },
 
