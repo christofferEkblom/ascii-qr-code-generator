@@ -8,6 +8,8 @@ var app = {
     app.getInput().addEventListener('keyup', app.getQRFromUserInput, false);
     app.getInput().addEventListener('click', app.resetInput, false);
     app.getInput().addEventListener('blur', app.resetInput, false);
+
+    app.getRefreshButton().addEventListener('click', app.init, false);
   },
 
   getInput : function() {
@@ -20,6 +22,10 @@ var app = {
 
   getOutput: function() {
     return document.getElementById('output');
+  },
+
+  getRefreshButton : function() {
+    return document.getElementById('refresh');
   },
 
   async fetchSampleData() {
