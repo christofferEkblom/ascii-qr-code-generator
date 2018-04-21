@@ -2,7 +2,7 @@
 
 const router = require('express').Router()
 const qr_generator = require("../lib/qr-generator")
-const sample_data_randomizer = require('../lib/sample-data-randomizer')
+const sample_data = require('../lib/sample-data')
 const SampleData = require('../models/SampleData')
 
 router.get('/api', function(req, res) {
@@ -16,7 +16,13 @@ router.get('/api', function(req, res) {
 })
 
 router.get('/api/sample-data', function(req, res) {
-  sample_data_randomizer.randomize(function(err, sampleData) {
+  sample_data.randomize(function(err, sampleData) {
+    res.send(sampleData)
+  })
+})
+
+router.get('/api/sample-data-all', function(req, res) {
+  sample_data.getAll(function(err, sampleData) {
     res.send(sampleData)
   })
 })
