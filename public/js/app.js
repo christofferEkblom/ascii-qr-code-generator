@@ -2,83 +2,53 @@
 
 var app = {
   init : function() {
-    let input = app.getInput();
-    app.update();
-    input.addEventListener('keyup', app.getQR, false);
-    input.addEventListener('focus', app.resetInput, false);
-    input.addEventListener('blur', app.restoreInput, false);
     new ClipboardJS('.btn');
+    app.fetchSampleData().then(data => app.updateForm(data));
+
+    app.getInput().addEventListener('keyup', app.getQRFromUserInput, false);
+    app.getInput().addEventListener('click', app.resetInput, false);
+    app.getInput().addEventListener('blur', app.resetInput, false);
   },
 
   getInput : function() {
     return document.getElementById('input');
   },
 
-  getOutput: function() {
-    return document.getElementById('output');
-  },
-
   getInitialInputValue : function() {
     return document.getElementById('initial-input-data');
   },
 
-  getQR : function(content) {
-    let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-      if(this.readyState === 4 && this.status === 200) {
-        app.getOutput().value = this.responseText + '\n' + app.getInput().value;
-      }
-    }
-    xhttp.open('GET', 'api?data=' + content, true);
-    xhttp.send('null');
+  getOutput: function() {
+    return document.getElementById('output');
   },
 
-  reset : function(content) {
-    let xhttp = new XMLHttpRequest();
-
-    app.fetchSampleData(
-      function(data) {
-        xhttp.onreadystatechange = function() {
-          if(this.readyState === 4 && this.status === 200) {
-            app.getOutput().value = this.responseText + '\n' + app.getInput().value;
-          }
-        }
-        xhttp.open('GET', 'api?data=' + content, true);
-        xhttp.send('null');
-      }
-    );
+  async fetchSampleData() {
+    const sampleData = await window.fetch('api/sample-data');
+    return sampleData.json();
   },
 
-  fetchSampleData : function(callback) {
-    let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function() {
-      if(this.readyState === 4 && this.status === 200) {
-        app.getInput().value = this.responseText;
-        app.getInitialInputValue().value = this.responseText;
-        callback(this.responseText);
-      }
-    }
-
-    xhttp.open('GET', 'api/sample-data', true);
-    xhttp.send('null');
-  },
-
-  update : function() {
-    app.getOutput().value = '\n\n\n\nPocessing data...';
-    app.reset(app.getInput().value);
+  async getQR(data) {
+    const qr = await window.fetch('api?data=' + data);
+    return qr.text();
   },
 
   resetInput : function() {
-    if(app.getInput().value === app.getInitialInputValue().value) {
-      app.getInput().value = '';
+    if(app.getInput().value == app.getInitialInputValue().value) {
+      app.getInput().value = "";
+    }
+    else if(app.getInput().value == "") {
+      app.getInput().value = app.getInitialInputValue().value;
     }
   },
 
-  restoreInput : function() {
-    if(app.getInput().value === '') {
-      app.getInput().value = app.getInitialInputValue().value;
-    }
+  getQRFromUserInput : function() {
+    app.getQR(app.getInput().value).then(qr => app.getOutput().value = qr + '\n' + app.getInput().value);
+  },
+
+  updateForm : function(data) {
+    let sampleData = data['data'];
+    app.getInput().value = sampleData;
+    app.getInitialInputValue().value = sampleData;
+    app.getQRFromUserInput();
   }
 }
