@@ -8,7 +8,6 @@ const port = process.env.PORT
 const requireDir = require('require-dir')
 const routes = requireDir('./routes')
 const mongoose = require('./config/mongoose.js')
-const bodyParser = require('body-parser')
 
 mongoose.run().catch(error => {
   console.error(error)
@@ -16,7 +15,7 @@ mongoose.run().catch(error => {
 })
 
 app.use("/public", express.static('./public'))
-app.use(bodyParser())
+
 
 for(let i in routes) {
   app.use('/', routes[i])
