@@ -48,7 +48,11 @@ var app = {
   },
 
   getQRFromUserInput : function() {
-    app.getQR(app.getInput().value).then(qr => app.getOutput().value = qr + '\n' + app.getInput().value);
+    let fetchQR = function() {
+      app.getQR(app.getInput().value).then(qr => app.getOutput().value = qr + '\n' + app.getInput().value);
+    }
+
+    app.renderLoader(fetchQR, 500, 500);
   },
 
   updateForm : function(data) {
@@ -56,5 +60,26 @@ var app = {
     app.getInput().value = sampleData;
     app.getInitialInputValue().value = sampleData;
     app.getQRFromUserInput();
+  },
+
+  renderLoader : function(next, speed, duration) {
+    let frames = '◰◳◲◱'.split('');
+    let start = Date.now();
+
+    let step = function (timestamp) {
+      app.getOutput().style.fontSize = '200px';
+      let frame = Math.floor(timestamp * frames.length / speed) % frames.length;
+      app.getOutput().value = '\n\n\n\n\n' + frames[frame];
+  
+      if(Date.now() - start < duration) {
+        window.requestAnimationFrame(step, next);
+      }
+      else {
+        app.getOutput().style.fontSize = 'inherit';
+        next();
+      }
+    }
+
+    window.requestAnimationFrame(step, next);
   }
 }
