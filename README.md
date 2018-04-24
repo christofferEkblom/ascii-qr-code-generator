@@ -18,7 +18,7 @@ A QR code generator that generates QR codes in ASCII format.
 curl {SCHEME}://{HOST}:{PORT}/api/get-qr?data={DATA}
 ```
 
-For example, ```data=`https://github.com/christofferEkblom/ascii-qr-code-generator``` will give this response:
+For example, ```data=https://github.com/christofferEkblom/ascii-qr-code-generator``` will give this response:
 
 ```
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
