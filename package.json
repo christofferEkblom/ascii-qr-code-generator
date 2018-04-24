@@ -18,8 +18,8 @@
     "express-handlebars": "^3.0.0",
     "find": "^0.2.9",
     "mongoose": "^5.0.15",
-    "qrcode-terminal": "^0.12.0",
-    "require-dir": "^1.0.0"
+    "oauth2-server": "^2.4.1",
+    "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"

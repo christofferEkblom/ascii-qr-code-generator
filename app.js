@@ -5,9 +5,18 @@ const express = require('express')
 const exphbs  = require('express-handlebars')
 const app = express()
 const port = process.env.PORT
-const requireDir = require('require-dir')
-const routes = requireDir('./routes')
 const mongoose = require('./config/mongoose.js')
+const bodyParser = require('body-parser')
+const oauthserver = require('oauth2-server')
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+app.oauth = oauthserver({
+  model: require('./models/Oauth2.js'),
+  grants: ['password', 'client_credentials'],
+  debug: false
+})
 
 mongoose.run().catch(error => {
   console.error(error)
@@ -16,12 +25,15 @@ mongoose.run().catch(error => {
 
 app.use("/public", express.static('./public'))
 
+app.all('/oauth/token',  app.oauth.grant())
 
-for(let i in routes) {
-  app.use('/', routes[i])
-}
+app.use('/', require('./routes/home'))
+app.use('/', require('./routes/api'))
+app.use('/', app.oauth.authorise(), require('./routes/admin'))
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars');
+app.set('view engine', 'handlebars')
+
+app.use(app.oauth.errorHandler())
 
 app.listen(port)

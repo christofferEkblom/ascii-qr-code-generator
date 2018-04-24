@@ -3,11 +3,10 @@
 const router = require('express').Router()
 const qr_generator = require("../lib/qr-generator")
 const sample_data = require('../lib/sample-data')
-const SampleData = require('../models/SampleData')
 
-router.get('/api', function(req, res) {
+router.get('/api/get-qr', function(req, res) {
   if(req.query.data == null || req.query.data == '') {
-    req.query.data = "no input data"
+    return res.send('No input data')
   }
   
   qr_generator.generateQR(req.query.data, function(err, data) { 
@@ -15,37 +14,15 @@ router.get('/api', function(req, res) {
   })
 })
 
-router.get('/api/sample-data', function(req, res) {
+router.get('/api/get-sample-data', function(req, res) {
   sample_data.randomize(function(err, sampleData) {
     res.send(sampleData)
   })
 })
 
-router.get('/api/sample-data-all', function(req, res) {
+router.get('/api/get-sample-data-all', function(req, res) {
   sample_data.getAll(function(err, sampleData) {
     res.send(sampleData)
-  })
-})
-
-router.post('/api', function (req, res, next) {
-  let item = {
-  	data: req.body.data
-  }
-  
-  let data = new SampleData(item)
-  data.save()
-
-  res.send(true)
-})
-
-router.delete('/api/:id', function (req, res, next) {
-  let id = req.params.id
-  SampleData.findByIdAndRemove(id, function(err) {
-    if(err) {
-      res.send(err)
-    } else {
-      res.send(true)
-    }
   })
 })
 

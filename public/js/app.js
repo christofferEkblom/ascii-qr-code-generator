@@ -29,12 +29,12 @@ var app = {
   },
 
   async fetchSampleData() {
-    const sampleData = await window.fetch('api/sample-data');
+    const sampleData = await window.fetch('api/get-sample-data');
     return sampleData.json();
   },
 
   async getQR(data) {
-    const qr = await window.fetch('api?data=' + data);
+    const qr = await window.fetch('api/get-qr?data=' + data);
     return qr.text();
   },
 
