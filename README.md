@@ -37,6 +37,14 @@ curl {SCHEME}://{HOST}:{PORT}/oauth/token \
   -H "Content-Type: application/x-www-form-urlencoded"
 ```
 
+For example, to use ```user:secretcode```, you can type the following (if you have OpenSSL installed):
+
+```
+echo -n 'user:secretcode' | openssl base64
+```
+
+The output should be ```dXNlcjpzZWNyZXRjb2Rl```. Therefore, you should send ```Authorization: Basic dXNlcjpzZWNyZXRjb2Rl```.
+
 #### 📬 Create new sample data post
 ```
 curl --data "data={POST DATA}" {SCHEME}://{HOST}:{PORT}/api \
