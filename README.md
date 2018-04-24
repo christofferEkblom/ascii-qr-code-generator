@@ -87,6 +87,7 @@ npm start
 * Node.js
 * oauth2
 * SASS
+* MongoDB
 
 ## Developer
 🇸🇪Christoffer Ekblom
