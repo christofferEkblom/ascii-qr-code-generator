@@ -1,6 +1,6 @@
 # ASCII QR code generator
 
-![Application screenshot](https://raw.githubusercontent.com/christofferEkblom/ascii-qr-code-generator/master/screenshot.png)
+![Application demo](https://raw.githubusercontent.com/christofferEkblom/ascii-qr-code-generator/master/demo.gif)
 
 ## Description
 A QR code generator that generates QR codes in ASCII format.
