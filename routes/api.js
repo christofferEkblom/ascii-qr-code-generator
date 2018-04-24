@@ -14,13 +14,13 @@ router.get('/api/get-qr', function(req, res) {
   })
 })
 
-router.get('/api/get-sample-data', function(req, res) {
+router.get('/api/get-random-sample-data', function(req, res) {
   sample_data.randomize(function(err, sampleData) {
     res.send(sampleData)
   })
 })
 
-router.get('/api/get-sample-data-all', function(req, res) {
+router.get('/api/get-sample-data-list', function(req, res) {
   sample_data.getAll(function(err, sampleData) {
     res.send(sampleData)
   })

@@ -29,7 +29,7 @@ var app = {
   },
 
   async fetchSampleData() {
-    const sampleData = await window.fetch('api/get-sample-data');
+    const sampleData = await window.fetch('api/get-random-sample-data');
     return sampleData.json();
   },
 
