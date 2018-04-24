@@ -4,4 +4,4 @@
 
 cd $PWD/public/scss;
 
-sass --watch main.scss:main.min.css --style compressed --watch | sass --watch main.scss:main.css --watch
+sass main.scss:main.min.css --style compressed --watch | sass main.scss:main.css --watch
