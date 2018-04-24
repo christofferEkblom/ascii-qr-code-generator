@@ -43,7 +43,8 @@ For example, to use ```user:secretcode```, you can type the following (if you ha
 echo -n 'user:secretcode' | openssl base64
 ```
 
-The output should be ```dXNlcjpzZWNyZXRjb2Rl```. Therefore, you should send ```Authorization: Basic dXNlcjpzZWNyZXRjb2Rl```.
+The output should be ```dXNlcjpzZWNyZXRjb2Rl```.
+Therefore, you should send ```Authorization: Basic dXNlcjpzZWNyZXRjb2Rl```.
 
 #### 📬 Create new sample data post
 ```
