@@ -3,6 +3,12 @@
 var app = {
   init : function() {
     new ClipboardJS('.btn');
+    let tooltips = document.getElementsByClassName("tooltip");
+    
+    for(let i = 0; i < tooltips.length; i++) {
+      tooltips[i].addEventListener("click", app.showTooltip, false);
+    }
+
     app.fetchSampleData().then(data => app.updateForm(data));
 
     app.getInput().addEventListener('keyup', app.getQRFromUserInput, false);
@@ -88,5 +94,21 @@ var app = {
     }
 
     window.requestAnimationFrame(step, next);
+  },
+
+  showTooltip : function(event) {
+    let element = this.firstChild;
+    let opacity = window.getComputedStyle(element, null).getPropertyValue("opacity");
+
+    element.style.top = (event.offsetY + 25) + "px";
+    element.style.left = (event.offsetX) + "px";
+
+    if(opacity < 1) {
+      element.style.opacity = 1;
+            
+      setTimeout(function() {
+        element.style.opacity = 0;
+      }, 2000);
+    }
   }
 }

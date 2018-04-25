@@ -3,7 +3,8 @@ $FONT : "Andale mono", monospace;
 
 // COLORS
 $PANTONE-128-C : #F3D54E;
-$PANTONE-512-C: #833177;
+$PANTONE-256-C : #D6BFDD;
+$PANTONE-512-C : #833177;
 $BLACK : #000;
 $WHITE : #FFF;
 $RED : #F00;
@@ -101,6 +102,7 @@ $GREEN : #0F0;
 #qr-generator {
   background: $BLACK;
   color: $WHITE;
+  overflow: hidden;
 }
 
 #qr-generator h1 {
@@ -142,6 +144,18 @@ $GREEN : #0F0;
   @include rotate(360deg);
 }
 
+#qr-generator .tooltip .tooltiptext {
+    display: inherit;
+    position: absolute;
+    opacity: 0;
+    background: $PANTONE-512-C;
+    color: $PANTONE-128-C;
+    border: 1px solid $PANTONE-256-C;
+    @include border-radius(6px);
+    padding: 6px;
+    @include transition(opacity, 1s, ease-in-out, null, null);
+}
+
 #qr-generator #copy {
   display: block;
   float: right;
@@ -156,17 +170,17 @@ $GREEN : #0F0;
   color: $PANTONE-512-C;
 }
 
+#qr-generator #copy img {
+  position: relative;
+  top: 5px;
+}
+
 #qr-generator #copy:hover {
   color: #000;
 }
 
 #qr-generator #copy img {
   width: 16px;
-}
-
-#qr-generator #copy span {
-  position: relative;
-  bottom: 4px;
 }
 
 #qr-generator label {
@@ -242,12 +256,12 @@ $GREEN : #0F0;
 
   #qr-generator #copy {
     top: 0;
-    padding: 10px;
     background: $PANTONE-512-C;
   }
   
   #qr-generator #copy img {
     width: 32px;
+    padding: 10px;
     content: url('../graphics/clippy2.svg');
   }
 
