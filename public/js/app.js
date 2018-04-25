@@ -15,6 +15,8 @@ var app = {
     app.getInput().addEventListener('click', app.resetInput, false);
     app.getInput().addEventListener('blur', app.resetInput, false);
 
+    app.getOutput().addEventListener('input', app.restoreOutput, false);
+
     app.getRefreshButton().addEventListener('click', app.init, false);
   },
 
@@ -24,6 +26,10 @@ var app = {
 
   getInitialInputValue : function() {
     return document.getElementById('initial-input-data');
+  },
+
+  getInitialOutputValue : function() {
+    return document.getElementById('initial-output-data');
   },
 
   getOutput: function() {
@@ -53,11 +59,18 @@ var app = {
     }
   },
 
+  restoreOutput : function() {
+    app.getOutput().value = app.getInitialOutputValue().value;
+  },
+
   getQRFromUserInput : function() {
     let fetchQR = function() {
       app.getQR(app.getInput().value)
-        .then(qrCode =>
-          app.getOutput().value = qrCode + '\n' + app.getInput().value);
+        .then(function(qrCode) {
+          let value = qrCode + '\n' + app.getInput().value;
+          app.getOutput().value = value;
+          app.getInitialOutputValue().value = value;
+        });
     }
 
     let spinnerSpeed = 500;
