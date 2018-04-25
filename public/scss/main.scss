@@ -129,6 +129,11 @@ $GREEN : #0F0;
   top: 12px;
 }
 
+#qr-generator h1 a {
+  color: $WHITE;
+  text-decoration: none;
+}
+
 #qr-generator input, #qr-generator textarea {
 	outline: none;
 }
